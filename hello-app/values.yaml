@@ -1,0 +1,26 @@
+hello-app:
+  serviceAccountName: helloweb
+  name: helloweb
+  labels:
+    app: hello
+  containers:
+    image: gcr.io/google-samples/hello-app:2.0
+  port:
+    containerPort: 8080
+    resources:
+      requests:
+        cpu: 200m
+service:
+  type: LoadBalancer
+  loadBalancerIP: "127.0.0.1"
+  port: 8080
+  targetPort: 8080
+  selector:
+    app: hello
+    tier: web
+
+ingress:
+  enable: false
+
+autoscaling:
+  enable: false
